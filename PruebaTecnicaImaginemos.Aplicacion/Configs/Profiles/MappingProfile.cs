@@ -41,6 +41,7 @@ namespace PruebaTecnicaImaginemos.Aplicacion.Configs.Profiles
 
             CreateMap<Venta, PostVentaDTO>()
                 .ForMember(dest => dest.DetalleVentaIds, opt => opt.MapFrom(src => src.DetallesVenta.Select(x => x.Id)))
+                .ForPath(dest => dest.NombreUsuario, opt => opt.MapFrom(src => src.UsuarioNavigation.Nombre))
                 .ReverseMap();
 
             CreateMap<Usuario, UsuarioDTO>()
