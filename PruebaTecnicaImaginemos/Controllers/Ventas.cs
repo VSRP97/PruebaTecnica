@@ -22,12 +22,16 @@ namespace PruebaTecnicaImaginemos.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<VentaDTO>>> Get([FromQuery] DateTime fechaInicio, [FromQuery] DateTime fechaFin, [FromQuery] string search)
+        public async Task<ActionResult<IEnumerable<VentaDTO>>> Get([FromQuery] DateTime? fechaInicio, [FromQuery] DateTime? fechaFin, [FromQuery] string search = "", [FromQuery] int page = 1, [FromQuery] int pageSize = 10)
         {
             try
             {
                 var ventasDTO = await _servicioVenta.GetVentas(fechaInicio, fechaFin, search);
-                return Ok(ventasDTO);
+                var cantidadVentas = ventasDTO.Count();
+                var cantidadPaginas = (int)Math.Ceiling((double)cantidadVentas / pageSize);
+                var ventasPaginadas = ventasDTO.Skip((page - 1) * pageSize).Take(pageSize);
+
+                return Ok(ventasPaginadas);
             }
             catch (Exception ex)
             {
