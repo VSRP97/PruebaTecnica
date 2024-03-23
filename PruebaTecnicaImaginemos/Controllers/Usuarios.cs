@@ -20,7 +20,7 @@ namespace PruebaTecnicaImaginemos.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<UsuarioDTO>>> Get([FromQuery] string search)
+        public async Task<ActionResult<IEnumerable<UsuarioDTO>>> Get([FromQuery] string search = "")
         {
             try
             {
