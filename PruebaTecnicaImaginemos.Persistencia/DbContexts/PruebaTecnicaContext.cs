@@ -16,7 +16,8 @@ namespace PruebaTecnicaImaginemos.Persistencia.DbContexts
         public virtual DbSet<Usuario> Usuarios { get; set; }
 
         public PruebaTecnicaContext(DbContextOptions<PruebaTecnicaContext> options) : base(options)
-        { 
+        {
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
